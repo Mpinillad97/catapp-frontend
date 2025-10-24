@@ -1,23 +1,35 @@
 import { TestBed } from '@angular/core/testing';
-import { App } from './app';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { RouterTestingModule } from '@angular/router/testing';
+import { of } from 'rxjs';
 
-describe('App', () => {
+import { AppComponent } from './app.component';
+import { AuthApiService } from './core/services/auth-api.service';
+
+describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [App],
+      imports: [
+        AppComponent,          
+        HttpClientTestingModule, 
+        RouterTestingModule      
+      ],
+      providers: [
+        {
+          provide: AuthApiService,
+          useValue: {
+            login: jest.fn().mockReturnValue(of({ token: 'T', user: { id: '1', name: 'Test', email: 't@t.com' } })),
+            register: jest.fn().mockReturnValue(of({ ok: true })),
+            me: jest.fn().mockReturnValue(of({ user: { id: '1', name: 'Test', email: 't@t.com' } })),
+          },
+        },
+      ],
     }).compileComponents();
   });
 
-  it('should create the app', () => {
-    const fixture = TestBed.createComponent(App);
+  it('debe crearse', () => {
+    const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
     expect(app).toBeTruthy();
-  });
-
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(App);
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, catapp-frontend');
   });
 });
