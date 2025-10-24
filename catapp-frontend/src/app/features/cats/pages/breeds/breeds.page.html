@@ -1,0 +1,12 @@
+<div class="row g-4">
+  <div class="col-12 col-lg-4">
+    <div class="card p-3 h-100">
+      <app-breed-selector (breedSelected)="onBreed($event)"></app-breed-selector>
+    </div>
+  </div>
+  <div class="col-12 col-lg-8">
+    <div class="card p-3 h-100">
+      <app-breed-details [breedId]="selectedId"></app-breed-details>
+    </div>
+  </div>
+</div>

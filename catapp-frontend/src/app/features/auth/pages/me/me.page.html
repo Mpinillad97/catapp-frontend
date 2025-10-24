@@ -1,0 +1,21 @@
+<div class="card p-4">
+  <h3 class="h-title mb-3">Mi perfil</h3>
+
+  <div *ngIf="error" class="alert alert-warning py-2">{{ error }}</div>
+
+  <div class="row g-3">
+    <div class="col-12 col-md-6">
+      <div class="p-3 border rounded-3 bg-white">
+        <div class="text-muted small">Nombre</div>
+        <div class="fw-semibold">{{ me?.name || '—' }}</div>
+      </div>
+    </div>
+
+    <div class="col-12 col-md-6">
+      <div class="p-3 border rounded-3 bg-white">
+        <div class="text-muted small">Email</div>
+        <div class="fw-semibold">{{ me?.email || '—' }}</div>
+      </div>
+    </div>
+  </div>
+</div>

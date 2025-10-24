@@ -1,0 +1,11 @@
+<div class="mb-2">
+  <label class="form-label fw-semibold">Selecciona una raza</label>
+  <div class="input-group">
+    <span class="input-group-text"><i class="bi bi-search"></i></span>
+    <select #sel class="form-select" (change)="onSelect(sel.value)">
+      <option value="">— Selecciona —</option>
+      <option *ngFor="let b of breeds" [value]="b.id">{{ b.name }}</option>
+    </select>
+  </div>
+  <small class="text-muted">Elige una raza para ver detalles e imágenes.</small>
+</div>

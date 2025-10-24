@@ -1,0 +1,12 @@
+services:
+  catapp-frontend:
+    build: .
+    image: catapp-frontend:latest
+    ports:
+      - "8080:80"
+    networks:
+      - backend_default
+
+networks:
+  backend_default:
+    external: true

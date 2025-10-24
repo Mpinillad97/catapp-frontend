@@ -1,0 +1,49 @@
+<div *ngIf="breed as b" class="d-grid gap-2">
+  <div>
+    <h3 class="h-title mb-1">{{ b?.name }}</h3>
+    <div class="d-flex flex-wrap gap-2">
+      <span class="badge badge-soft"><i class="bi bi-geo-alt me-1"></i>{{ b?.origin || '—' }}</span>
+      <span class="badge bg-light text-dark"><i class="bi bi-heart me-1"></i>Vida: {{ b?.life_span || '—' }} años</span>
+      <a *ngIf="b?.wikipedia_url" class="badge bg-white border text-primary" [href]="b?.wikipedia_url" target="_blank">
+        <i class="bi bi-box-arrow-up-right me-1"></i>Wikipedia
+      </a>
+    </div>
+  </div>
+
+  <p class="text-secondary">{{ b?.description }}</p>
+
+  <!-- Imagen principal con flechas propias -->
+  <div *ngIf="images?.length" class="position-relative card p-2">
+    <img [src]="images[current]?.url" class="img-fluid rounded w-100" [alt]="b?.name || 'cat'" style="aspect-ratio:3/2; object-fit:cover;"/>
+
+    <button class="btn btn-light position-absolute top-50 start-0 translate-middle-y ms-2"
+            style="border-radius:50%; box-shadow: var(--shadow);" (click)="prev()">
+      <i class="bi bi-chevron-left"></i>
+    </button>
+
+    <button class="btn btn-light position-absolute top-50 end-0 translate-middle-y me-2"
+            style="border-radius:50%; box-shadow: var(--shadow);" (click)="next()">
+      <i class="bi bi-chevron-right"></i>
+    </button>
+  </div>
+
+  <!-- Tira de miniaturas scrollable -->
+  <div *ngIf="images?.length" class="d-flex gap-2 overflow-auto py-1">
+    <button *ngFor="let img of images; let i = index"
+            class="p-0 border-0 bg-transparent"
+            (click)="goTo(i)"
+            [attr.aria-label]="'Ir a imagen ' + (i+1)">
+      <img [src]="img.url"
+           [class]="i === current ? 'ring' : ''"
+           style="width:86px;height:56px;object-fit:cover;border-radius:8px;border:2px solid #fff;box-shadow:0 1px 3px rgba(0,0,0,.06);" />
+    </button>
+  </div>
+
+  <div *ngIf="!images?.length" class="text-muted small">
+    No hay imágenes para esta raza aún.
+  </div>
+</div>
+
+<div *ngIf="!breed" class="text-muted">
+  Selecciona una raza para ver información.
+</div>
